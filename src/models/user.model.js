@@ -34,7 +34,7 @@ const userSchema = new Schema(
         },
         watchHistory:[
             {
-                type: Schema.Types,ObjectId,
+                type: Schema.Types.ObjectId,
                 ref:"Video"
             }
         ],
@@ -53,7 +53,7 @@ const userSchema = new Schema(
 
 userSchema.pre("save",async function(next){ 
     if(this.isModified("password")){
-        this.password = bcrypt.hash(this.password,10);
+        this.password = await bcrypt.hash(this.password,10);
         next();
     }else{
         next();
