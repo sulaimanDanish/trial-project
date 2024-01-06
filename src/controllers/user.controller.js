@@ -19,7 +19,7 @@ const registerUser = asyncHandler(async (req,res)=>{
 
     //check if already exists
 
-    const userExists = User.findOne({
+    const userExists = await User.findOne({
         $or:[{ username },{ email }]
     });
 
@@ -53,7 +53,7 @@ const registerUser = asyncHandler(async (req,res)=>{
         coverImage: coverImage?.url || "",
         email,
         password,
-        username:username.tolowercase()
+        username:username.toLowerCase()
     });
 
     //remove password and refresh token field from response
@@ -71,7 +71,7 @@ const registerUser = asyncHandler(async (req,res)=>{
     //return res
 
     return res.status(201).json(
-        new ApiResponse(200,userCreated,"USer registered succesfully")
+        new ApiResponse(200,userCreated,"User registered succesfully")
     );
 
 });
